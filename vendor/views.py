@@ -22,6 +22,11 @@ def user_login(request):
                     return redirect("vendordashboard")
                 elif user.groups.filter(name="Supplier").exists():
                     return redirect("supplierdashboard")
+                else:
+                    form.add_error(
+                        None,
+                        "Your account does not have a Vendor or Supplier role."
+                    )
             else:
                 form.add_error(
                     None,"Invalid username or password"
