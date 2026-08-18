@@ -1,0 +1,197 @@
+{% extends "base.html" %}
+
+{% block title %}
+Submit Quotation
+{% endblock %}
+
+{% block content %}
+
+<div class="submit-quotation-page">
+
+    <div class="submit-quotation-header">
+
+        <h1>Submit Quotation</h1>
+
+        <p>
+            Review the vendor's request and submit your quotation.
+        </p>
+
+    </div>
+
+
+    <div class="quotation-container">
+
+
+        <!-- RFQ DETAILS -->
+
+        <div class="rfq-details-card">
+
+            <div class="card-icon">
+                <i class="bi bi-file-earmark-text"></i>
+            </div>
+
+            <h2>Quotation Request</h2>
+
+            {% if rfq.product.image %}
+
+                <div class="quotation-product-image">
+
+                    <img
+                        src="{{ rfq.product.image.url }}"
+                        alt="{{ rfq.product.name }}"
+                    >
+
+                </div>
+
+            {% endif %}
+
+
+            <h3>
+                {{ rfq.product.name }}
+            </h3>
+
+
+            <div class="rfq-detail">
+
+                <span>
+                    <i class="bi bi-building"></i>
+                    Vendor
+                </span>
+
+                <strong>
+                    {{ rfq.vendor.company_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="rfq-detail">
+
+                <span>
+                    <i class="bi bi-box"></i>
+                    Quantity Required
+                </span>
+
+                <strong>
+                    {{ rfq.quantity }}
+                    {{ rfq.product.unit }}
+                </strong>
+
+            </div>
+
+
+            <div class="rfq-detail">
+
+                <span>
+                    <i class="bi bi-calendar-event"></i>
+                    Required By
+                </span>
+
+                <strong>
+                    {{ rfq.required_by }}
+                </strong>
+
+            </div>
+
+
+            <div class="rfq-description">
+
+                <span>
+                    Description
+                </span>
+
+                <p>
+                    {{ rfq.description }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUOTATION FORM -->
+
+        <div class="quotation-form-card">
+
+            <div class="card-icon">
+                <i class="bi bi-receipt"></i>
+            </div>
+
+            <h2>Your Quotation</h2>
+
+            <p class="form-description">
+                Enter your price and delivery terms.
+            </p>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                {{ form.non_field_errors }}
+
+
+                {% for field in form %}
+
+                <div class="quotation-field">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+
+                        <small>
+                            {{ field.help_text }}
+                        </small>
+
+                    {% endif %}
+
+
+                    {% if field.errors %}
+
+                        <div class="field-error">
+                            {{ field.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+                {% endfor %}
+
+
+                <div class="quotation-note">
+
+                    <i class="bi bi-info-circle"></i>
+
+                    <span>
+                        Quantity is automatically taken from the
+                        vendor's RFQ.
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-quotation-btn"
+                >
+
+                    <i class="bi bi-send"></i>
+
+                    Submit Quotation
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

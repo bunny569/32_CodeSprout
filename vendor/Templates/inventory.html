@@ -1,0 +1,202 @@
+{% extends "base.html" %}
+
+{% block title %}
+Inventory
+{% endblock %}
+
+{% block content %}
+
+<div class="inventory-page">
+
+    <div class="inventory-header">
+
+        <div>
+            <h1>Inventory</h1>
+
+            <p>
+                Manage your product stock and monitor inventory levels.
+            </p>
+        </div>
+
+        <div class="inventory-summary">
+            <i class="bi bi-box-seam"></i>
+
+            <div>
+                <span>Total Products</span>
+                <strong>{{ products|length }}</strong>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="inventory-grid">
+
+        {% for product in products %}
+
+        <div class="inventory-card">
+
+            <!-- Product Image -->
+
+            <div class="inventory-image">
+
+                {% if product.image %}
+
+                    <img
+                        src="{{ product.image.url }}"
+                        alt="{{ product.name }}"
+                    >
+
+                {% else %}
+
+                    <i class="bi bi-image"></i>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Product Information -->
+
+            <div class="inventory-content">
+
+                <div class="inventory-title">
+
+                    <h2>
+                        {{ product.name }}
+                    </h2>
+
+                    <span class="inventory-category">
+                        {{ product.category }}
+                    </span>
+
+                </div>
+
+
+                <p class="inventory-description">
+                    {{ product.description }}
+                </p>
+
+
+                <div class="inventory-details">
+
+                    <div class="inventory-detail">
+
+                        <span>
+                            <i class="bi bi-box"></i>
+                            Stock
+                        </span>
+
+                        <strong>
+                            {{ product.stock_quantity }}
+                            {{ product.unit }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="inventory-detail">
+
+                        <span>
+                            <i class="bi bi-currency-rupee"></i>
+                            Price
+                        </span>
+
+                        <strong>
+                            ₹{{ product.price }}
+                            / {{ product.unit }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="inventory-detail">
+
+                        <span>
+                            <i class="bi bi-cart"></i>
+                            Minimum Order
+                        </span>
+
+                        <strong>
+                            {{ product.minimum_order_quantity }}
+                            {{ product.unit }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Stock Status -->
+
+                <div class="inventory-status">
+
+                    {% if product.stock_quantity <= 0 %}
+
+                        <span class="stock-badge out">
+                            <i class="bi bi-x-circle"></i>
+                            Out of Stock
+                        </span>
+
+                    {% elif product.stock_quantity <= 10 %}
+
+                        <span class="stock-badge low">
+                            <i class="bi bi-exclamation-circle"></i>
+                            Low Stock
+                        </span>
+
+                    {% else %}
+
+                        <span class="stock-badge available">
+                            <i class="bi bi-check-circle"></i>
+                            In Stock
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- Update Button -->
+
+                <a
+                    href="{% url 'updateinventory' product.id %}"
+                    class="inventory-update-btn"
+                >
+                    <i class="bi bi-pencil-square"></i>
+                    Update Stock
+                </a>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="inventory-empty">
+
+            <i class="bi bi-box-seam"></i>
+
+            <h2>No Products in Inventory</h2>
+
+            <p>
+                Add products to start managing your inventory.
+            </p>
+
+            <a
+                href="{% url 'addproduct' %}"
+                class="inventory-add-btn"
+            >
+                <i class="bi bi-plus-circle"></i>
+                Add Product
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

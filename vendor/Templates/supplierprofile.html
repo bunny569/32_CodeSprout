@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="supplier-profile-icon">
+
+            <i class="bi bi-person-circle"></i>
+
+        </div>
+
+        <div>
+
+            <h1>
+                {{ supplier.company_name }}
+            </h1>
+
+            <p>
+                Supplier Profile
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-card-header">
+
+            <h2>
+                Company Information
+            </h2>
+
+            <i class="bi bi-building"></i>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+
+            <!-- COMPANY -->
+
+            <div class="profile-field">
+
+                <span>
+                    Company Name
+                </span>
+
+                <strong>
+                    {{ supplier.company_name }}
+                </strong>
+
+            </div>
+
+
+            <!-- CONTACT PERSON -->
+
+            <div class="profile-field">
+
+                <span>
+                    Contact Person
+                </span>
+
+                <strong>
+                    {{ supplier.name }}
+                </strong>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="profile-field">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+                    {{ supplier.user.email }}
+                </strong>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div class="profile-field">
+
+                <span>
+                    Contact Number
+                </span>
+
+                <strong>
+                    {{ supplier.contact }}
+                </strong>
+
+            </div>
+
+
+            <!-- USERNAME -->
+
+            <div class="profile-field">
+
+                <span>
+                    Username
+                </span>
+
+                <strong>
+                    {{ supplier.user.username }}
+                </strong>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="profile-field">
+
+                <span>
+                    Account Status
+                </span>
+
+                {% if supplier.status == "Active" %}
+
+                    <strong class="status-active">
+                        {{ supplier.status }}
+                    </strong>
+
+                {% elif supplier.status == "Pending" %}
+
+                    <strong class="status-pending">
+                        {{ supplier.status }}
+                    </strong>
+
+                {% else %}
+
+                    <strong class="status-inactive">
+                        {{ supplier.status }}
+                    </strong>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- WEBSITE -->
+
+            <div class="profile-field profile-full">
+
+                <span>
+                    Website
+                </span>
+
+                {% if supplier.website %}
+
+                    <strong>
+                        {{ supplier.website }}
+                    </strong>
+
+                {% else %}
+
+                    <strong class="not-added">
+                        No website added
+                    </strong>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- ADDRESS -->
+
+            <div class="profile-field profile-full">
+
+                <span>
+                    Address
+                </span>
+
+                <strong>
+                    {{ supplier.address }}
+                </strong>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="profile-field profile-full">
+
+                <span>
+                    Description
+                </span>
+
+                {% if supplier.description %}
+
+                    <strong>
+                        {{ supplier.description }}
+                    </strong>
+
+                {% else %}
+
+                    <strong class="not-added">
+                        No description added
+                    </strong>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- ACTIONS -->
+
+    <div class="profile-actions">
+
+        <a
+            href="{% url 'editsupplierprofile' %}"
+            class="profile-edit-btn"
+        >
+
+            <i class="bi bi-pencil-square"></i>
+
+            Edit Profile
+
+        </a>
+
+
+        <a
+            href="{% url 'logout' %}"
+            class="profile-logout-btn"
+        >
+
+            <i class="bi bi-box-arrow-right"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

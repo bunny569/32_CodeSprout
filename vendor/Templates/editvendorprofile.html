@@ -1,0 +1,215 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="vendor-profile-icon">
+            <i class="bi bi-person-circle"></i>
+        </div>
+
+        <div>
+
+            <h1>
+                Edit Profile
+            </h1>
+
+            <p>
+                Update your vendor information.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-card-header">
+
+            <h2>
+                Edit Company Information
+            </h2>
+
+            <i class="bi bi-pencil-square"></i>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="profile-grid">
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="company_name"
+                        value="{{ vendor.company_name }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Contact Person
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        value="{{ vendor.name }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        value="{{ vendor.user.email }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Contact Number
+                    </label>
+
+                    <input
+                        type="text"
+                        name="contact"
+                        value="{{ vendor.contact }}"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Industry
+                    </label>
+
+                    <input
+                        type="text"
+                        name="industry"
+                        value="{{ vendor.industry }}"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="edit-field">
+
+                    <label>
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        value="{{ vendor.user.username }}"
+                        disabled
+                    >
+
+                </div>
+
+
+                <div class="edit-field profile-full">
+
+                    <label>
+                        Address
+                    </label>
+
+                    <textarea
+                        name="address"
+                        rows="4"
+                        required
+                    >{{ vendor.address }}</textarea>
+
+                </div>
+
+
+                <div class="edit-field profile-full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        name="description"
+                        rows="4"
+                        placeholder="Tell us about your company..."
+                    >{{ vendor.description }}</textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="edit-actions">
+
+                <button
+                    type="submit"
+                    class="save-profile-btn"
+                >
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Save Changes
+
+                </button>
+
+
+                <a
+                    href="{% url 'vendorprofile' %}"
+                    class="cancel-profile-btn"
+                >
+
+                    <i class="bi bi-x-circle"></i>
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

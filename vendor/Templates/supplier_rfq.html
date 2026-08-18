@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}
+RFQ Requests
+{% endblock %}
+
+{% block content %}
+
+<div class="rfq-header">
+
+    <h1>RFQ Requests</h1>
+
+    <p>
+        Review quotation requests received from vendors.
+    </p>
+
+</div>
+
+
+<div class="rfq-grid">
+
+    {% for rfq in rfqs %}
+
+    <div class="rfq-card">
+
+        <!-- Product Image -->
+        <div class="rfq-image-container">
+
+            {% if rfq.product.image %}
+
+                <img
+                    src="{{ rfq.product.image.url }}"
+                    alt="{{ rfq.product.name }}"
+                    class="rfq-image"
+                >
+
+            {% else %}
+
+                <div class="no-image">
+                    <i class="bi bi-image"></i>
+                    <p>No image available</p>
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- RFQ Details -->
+        <div class="rfq-content">
+
+            <h2>
+                {{ rfq.product.name }}
+            </h2>
+
+            <p>
+                <strong>Vendor:</strong>
+                {{ rfq.vendor.company_name }}
+            </p>
+
+            <p>
+                <strong>Quantity:</strong>
+                {{ rfq.quantity }}
+                {{ rfq.product.unit }}
+            </p>
+
+            <p>
+                <strong>Required By:</strong>
+                {{ rfq.required_by }}
+            </p>
+
+            <p>
+                <strong>Description:</strong>
+                {{ rfq.description }}
+            </p>
+
+
+            <!-- Status -->
+            <div class="rfq-status">
+
+                <strong>Status:</strong>
+
+                {% if rfq.status == "Pending" %}
+
+                    <span class="status pending">
+                        Pending
+                    </span>
+
+                {% elif rfq.status == "Accepted" %}
+
+                    <span class="status accepted">
+                        Accepted
+                    </span>
+
+                {% elif rfq.status == "Rejected" %}
+
+                    <span class="status rejected">
+                        Rejected
+                    </span>
+
+                {% else %}
+
+                    <span class="status">
+                        {{ rfq.status }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Submit Quotation -->
+            {% if rfq.status == "Pending" %}
+
+                <a
+                    href="{% url 'submitquotation' rfq.id %}"
+                    class="rfq-button"
+                >
+                    <i class="bi bi-send"></i>
+                    Submit Quotation
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <div class="no-rfqs">
+
+        <i class="bi bi-file-earmark-x"></i>
+
+        <h2>No RFQ Requests</h2>
+
+        <p>
+            You currently have no quotation requests.
+        </p>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

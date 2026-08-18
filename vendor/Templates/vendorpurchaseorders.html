@@ -1,0 +1,273 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Purchase Orders
+{% endblock %}
+
+{% block content %}
+
+<div class="po-header">
+
+    <h1>Purchase Orders</h1>
+
+    <p>
+        Track your supplier orders and delivery status.
+    </p>
+
+</div>
+
+
+<div class="po-grid">
+
+    {% for order in orders %}
+
+    <div class="po-card">
+
+
+     
+
+        
+
+            <div class="po-top">
+               <span>PO #{{ forloop.counter }}</span>
+
+            {% if order.status == "Pending" %}
+
+                <span class="status pending">
+                    Pending
+                </span>
+
+            {% elif order.status == "Confirmed" %}
+
+                <span class="status accepted">
+                    Confirmed
+                </span>
+
+            {% elif order.status == "Shipped" %}
+
+                <span class="status shipped">
+                    Shipped
+                </span>
+
+            {% elif order.status == "Delivered" %}
+
+                <span class="status delivered">
+                    Delivered
+                </span>
+
+            {% elif order.status == "Cancelled" %}
+
+                <span class="status rejected">
+                    Cancelled
+                </span>
+
+            {% endif %}
+
+        </div>
+
+
+       
+
+        {% if order.quotation.rfq.product.image %}
+
+            <img
+                src="{{ order.quotation.rfq.product.image.url }}"
+                alt="{{ order.quotation.rfq.product.name }}"
+                class="po-image"
+            >
+
+        {% else %}
+
+            <div class="po-no-image">
+
+                <i class="bi bi-image"></i>
+
+            </div>
+
+        {% endif %}
+
+
+        
+        <div class="po-content">
+
+            <h2>
+                {{ order.quotation.rfq.product.name }}
+            </h2>
+
+
+            <p>
+
+                <strong>
+                    Supplier:
+                </strong>
+
+                {{ order.supplier.company_name }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Quantity:
+                </strong>
+
+                {{ order.quotation.quantity }}
+                {{ order.quotation.rfq.product.unit }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Total Price:
+                </strong>
+
+                ₹{{ order.total_price }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Order Date:
+                </strong>
+
+                {{ order.order_date }}
+
+            </p>
+
+
+            <p>
+
+                <strong>
+                    Expected Delivery:
+                </strong>
+
+                {{ order.expected_delivery }}
+
+            </p>
+
+
+         
+
+            {% if order.status == "Pending" %}
+
+            <div class="po-info pending-info">
+
+                <i class="bi bi-clock"></i>
+
+                Waiting for supplier confirmation.
+
+            </div>
+
+            {% endif %}
+
+
+           
+
+            {% if order.status == "Confirmed" %}
+
+            <div class="po-info confirmed-info">
+
+                <i class="bi bi-check-circle"></i>
+
+                Order confirmed by supplier.
+                Waiting for shipment.
+
+            </div>
+
+            {% endif %}
+
+
+            
+
+            {% if order.status == "Shipped" %}
+
+            <div class="po-info shipped-info">
+
+                <i class="bi bi-truck"></i>
+
+                Your order has been shipped.
+
+            </div>
+
+
+            <div class="po-delivery-action">
+
+                <a
+                    href="{% url 'vendororderaction' order.id 'delivered' %}"
+                    class="mark-delivered-btn"
+                >
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Mark as Delivered
+
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+       
+
+            {% if order.status == "Delivered" %}
+
+            <div class="po-info delivered-info">
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                Order delivered successfully.
+
+            </div>
+
+            {% endif %}
+
+
+          
+
+            {% if order.status == "Cancelled" %}
+
+            <div class="po-info cancelled-info">
+
+                <i class="bi bi-x-circle"></i>
+
+                This order has been cancelled.
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+
+    {% empty %}
+
+
+    <div class="no-products">
+
+        <i class="bi bi-cart-x"></i>
+
+        <h2>
+            No purchase orders yet
+        </h2>
+
+        <p>
+            Accepted quotations will appear here.
+        </p>
+
+    </div>
+
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,295 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Vendor Analytics
+{% endblock %}
+
+{% block content %}
+
+<div class="analytics-page">
+
+    <div class="analytics-header">
+
+        <h1>Vendor Analytics</h1>
+
+        <p>
+            Track your procurement activity and purchasing performance.
+        </p>
+
+    </div>
+
+
+    <div class="analytics-grid">
+
+
+
+        <div class="analytics-card">
+
+            <h2>
+                RFQ Status
+            </h2>
+
+            <p>
+                Overview of your quotation requests.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="rfqChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+
+        <div class="analytics-card">
+
+            <h2>
+                Purchase Order Status
+            </h2>
+
+            <p>
+                Track your purchase order lifecycle.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="orderChart"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="analytics-card">
+
+            <h2>
+                Spending by Supplier
+            </h2>
+
+            <p>
+                Total spending on delivered orders.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="spendingChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+{{ rfq_pending|json_script:"rfq-pending" }}
+{{ rfq_quoted|json_script:"rfq-quoted" }}
+{{ rfq_accepted|json_script:"rfq-accepted" }}
+{{ rfq_rejected|json_script:"rfq-rejected" }}
+{{ rfq_expired|json_script:"rfq-expired" }}
+
+
+
+
+{{ order_pending|json_script:"order-pending" }}
+{{ order_confirmed|json_script:"order-confirmed" }}
+{{ order_shipped|json_script:"order-shipped" }}
+{{ order_delivered|json_script:"order-delivered" }}
+{{ order_cancelled|json_script:"order-cancelled" }}
+
+
+
+
+{{ supplier_names|json_script:"supplier-names" }}
+{{ supplier_spending|json_script:"supplier-spending" }}
+
+
+<script>
+
+   
+
+    const rfqPending =
+        JSON.parse(
+            document.getElementById("rfq-pending").textContent
+        );
+
+    const rfqQuoted =
+        JSON.parse(
+            document.getElementById("rfq-quoted").textContent
+        );
+
+    const rfqAccepted =
+        JSON.parse(
+            document.getElementById("rfq-accepted").textContent
+        );
+
+    const rfqRejected =
+        JSON.parse(
+            document.getElementById("rfq-rejected").textContent
+        );
+
+    const rfqExpired =
+        JSON.parse(
+            document.getElementById("rfq-expired").textContent
+        );
+
+
+
+    new Chart(
+        document.getElementById("rfqChart"),
+        {
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+                    "Pending",
+                    "Quoted",
+                    "Accepted",
+                    "Rejected",
+                    "Expired"
+                ],
+
+                datasets: [
+                    {
+                        data: [
+                            rfqPending,
+                            rfqQuoted,
+                            rfqAccepted,
+                            rfqRejected,
+                            rfqExpired
+                        ]
+                    }
+                ]
+
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        }
+    );
+
+
+
+
+    const orderPending =
+        JSON.parse(
+            document.getElementById("order-pending").textContent
+        );
+
+    const orderConfirmed =
+        JSON.parse(
+            document.getElementById("order-confirmed").textContent
+        );
+
+    const orderShipped =
+        JSON.parse(
+            document.getElementById("order-shipped").textContent
+        );
+
+    const orderDelivered =
+        JSON.parse(
+            document.getElementById("order-delivered").textContent
+        );
+
+    const orderCancelled =
+        JSON.parse(
+            document.getElementById("order-cancelled").textContent
+        );
+
+
+
+
+    new Chart(
+        document.getElementById("orderChart"),
+        {
+            type: "bar",
+
+            data: {
+
+                labels: [
+                    "Pending",
+                    "Confirmed",
+                    "Shipped",
+                    "Delivered",
+                    "Cancelled"
+                ],
+
+                datasets: [
+                    {
+                        label: "Purchase Orders",
+
+                        data: [
+                            orderPending,
+                            orderConfirmed,
+                            orderShipped,
+                            orderDelivered,
+                            orderCancelled
+                        ]
+                    }
+                ]
+
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        }
+    );
+
+
+
+    const supplierNames =
+        JSON.parse(
+            document.getElementById("supplier-names").textContent
+        );
+
+    const supplierSpending =
+        JSON.parse(
+            document.getElementById("supplier-spending").textContent
+        );
+
+
+
+    new Chart(
+        document.getElementById("spendingChart"),
+        {
+            type: "bar",
+
+            data: {
+
+                labels: supplierNames,
+
+                datasets: [
+                    {
+                        label: "Total Spending",
+
+                        data: supplierSpending
+                    }
+                ]
+
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        }
+    );
+
+</script>
+
+
+{% endblock %}

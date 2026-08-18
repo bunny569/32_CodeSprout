@@ -1,0 +1,196 @@
+{% extends "base2.html" %}
+
+{% block title %}
+My Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="vendor-profile-icon">
+            <i class="bi bi-person-circle"></i>
+        </div>
+
+        <div>
+
+            <h1>
+                {{ vendor.company_name }}
+            </h1>
+
+            <p>
+                Vendor Profile
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-card-header">
+
+            <h2>
+                Company Information
+            </h2>
+
+            <i class="bi bi-building"></i>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+
+            <div class="profile-field">
+
+                <span>
+                    Company Name
+                </span>
+
+                <strong>
+                    {{ vendor.company_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <span>
+                    Contact Person
+                </span>
+
+                <strong>
+                    {{ vendor.name }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+                    {{ vendor.user.email }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <span>
+                    Contact Number
+                </span>
+
+                <strong>
+                    {{ vendor.contact }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <span>
+                    Industry
+                </span>
+
+                <strong>
+                    {{ vendor.industry }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field">
+
+                <span>
+                    Username
+                </span>
+
+                <strong>
+                    {{ vendor.user.username }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field profile-full">
+
+                <span>
+                    Address
+                </span>
+
+                <strong>
+                    {{ vendor.address }}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-field profile-full">
+
+                <span>
+                    Description
+                </span>
+
+                {% if vendor.description %}
+
+                    <strong>
+                        {{ vendor.description }}
+                    </strong>
+
+                {% else %}
+
+                    <strong class="not-added">
+                        No description added
+                    </strong>
+
+                {% endif %}
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+   <div class="profile-actions">
+
+    <a
+        href="{% url 'editvendorprofile' %}"
+        class="profile-edit-btn"
+    >
+
+        <i class="bi bi-pencil-square"></i>
+
+        Edit Profile
+
+    </a>
+
+
+    <a
+        href="{% url 'logout' %}"
+        class="profile-logout-btn"
+    >
+
+        <i class="bi bi-box-arrow-right"></i>
+
+        Logout
+
+    </a>
+
+</div>
+
+</div>
+
+{% endblock %}

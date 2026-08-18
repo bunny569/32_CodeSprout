@@ -1,0 +1,230 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Vendor Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <h1>
+        Welcome, {{ vendor.name }} 👋
+    </h1>
+
+    <p>
+        Manage your procurement activities from here.
+    </p>
+
+</div>
+
+
+<!-- Statistics -->
+
+<div class="dashboard-cards">
+
+    <!-- Products -->
+
+    <div class="stat-card">
+
+        <i class="bi bi-box-seam"></i>
+
+        <h3>Products</h3>
+
+        <h2>
+            {{ products.count }}
+        </h2>
+
+    </div>
+
+
+    <!-- RFQs -->
+
+    <div class="stat-card">
+
+        <i class="bi bi-file-earmark-text"></i>
+
+        <h3>RFQs</h3>
+
+        <h2>
+            {{ rfqs.count }}
+        </h2>
+
+    </div>
+
+
+    <!-- Quotations -->
+
+    <div class="stat-card">
+
+        <i class="bi bi-currency-rupee"></i>
+
+        <h3>Quotations</h3>
+
+        <h2>
+            {{ quotations.count }}
+        </h2>
+
+    </div>
+
+
+    <!-- Purchase Orders -->
+
+    <div class="stat-card">
+
+        <i class="bi bi-cart-check"></i>
+
+        <h3>Purchase Orders</h3>
+
+        <h2>
+            {{ orders.count }}
+        </h2>
+
+    </div>
+
+</div>
+
+
+<!-- Quick Actions -->
+
+<div class="quick-actions">
+
+    <h2>Quick Actions</h2>
+
+    <p>
+        Manage your procurement activities quickly.
+    </p>
+
+
+    <div class="action-buttons">
+
+        <!-- Find Products -->
+
+        <a href="{% url 'productview' %}"
+           class="action-card">
+
+            <i class="bi bi-search"></i>
+
+            <span>
+                Find Products
+            </span>
+
+        </a>
+
+
+        <!-- Quotations -->
+
+        <a href="{% url 'vendorquotations' %}"
+           class="action-card">
+
+            <i class="bi bi-file-earmark-text"></i>
+
+            <span>
+                My Quotations
+            </span>
+
+        </a>
+
+
+        <!-- Purchase Orders -->
+
+        <a href="{% url 'vendorpurchaseorders' %}"
+           class="action-card">
+
+            <i class="bi bi-cart-check"></i>
+
+            <span>
+                Purchase Orders
+            </span>
+
+        </a>
+
+
+        <!-- Inventory -->
+
+        <a href="#"
+           class="action-card">
+
+            <i class="bi bi-boxes"></i>
+
+            <span>
+                Inventory
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- Recent Quotations -->
+
+<div class="recent-section">
+
+    <h2>Recent Quotations</h2>
+
+
+    {% for quotation in quotations|slice:":5" %}
+
+    <div class="quotation-row">
+
+        <div>
+
+            <strong>
+                {{ quotation.rfq.product.name }}
+            </strong>
+
+            <small>
+                Supplier:
+                {{ quotation.supplier.company_name }}
+            </small>
+
+        </div>
+
+
+        <div>
+
+            ₹{{ quotation.total_price }}
+
+        </div>
+
+
+        <div>
+
+            {% if quotation.status == "Pending" %}
+
+                <span class="status pending">
+                    Pending
+                </span>
+
+            {% elif quotation.status == "Accepted" %}
+
+                <span class="status accepted">
+                    Accepted
+                </span>
+
+            {% elif quotation.status == "Rejected" %}
+
+                <span class="status rejected">
+                    Rejected
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+        <p>
+            No quotations received yet.
+        </p>
+
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

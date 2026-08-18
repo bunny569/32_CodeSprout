@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Product
+{% endblock %}
+
+{% block content %}
+
+<div class="add-product-page">
+
+    <div class="add-product-header">
+        <h1>Add New Product</h1>
+        <p>Add a product to your supplier catalog.</p>
+    </div>
+
+
+    <div class="add-product-card">
+
+        <div class="product-form-icon">
+            <i class="bi bi-box-seam"></i>
+        </div>
+
+        <h2>Product Information</h2>
+
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+
+            {% for field in form %}
+
+            <div class="product-field">
+
+                <label for="{{ field.id_for_label }}">
+                    {{ field.label }}
+                </label>
+
+                {{ field }}
+
+                {% if field.help_text %}
+                    <small>
+                        {{ field.help_text }}
+                    </small>
+                {% endif %}
+
+                {% if field.errors %}
+                    <div class="field-error">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+
+            </div>
+
+            {% endfor %}
+
+
+            <button type="submit" class="add-product-btn">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Product
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}
+Supplier Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-header">
+
+    <h1>Welcome, {{ supplier.name }} 👋</h1>
+
+    <p>
+        Manage your products, RFQs and orders.
+    </p>
+
+</div>
+
+
+<div class="dashboard-cards">
+
+    <div class="stat-card">
+        <i class="bi bi-box-seam"></i>
+
+        <h3>Products</h3>
+
+        <h2>{{ products.count }}</h2>
+    </div>
+
+
+    <div class="stat-card">
+        <i class="bi bi-file-earmark-text"></i>
+
+        <h3>RFQs</h3>
+
+        <h2>{{ rfqs.count }}</h2>
+    </div>
+
+
+    <div class="stat-card">
+        <i class="bi bi-currency-rupee"></i>
+
+        <h3>Quotations</h3>
+
+        <h2>{{ quotations.count }}</h2>
+    </div>
+
+
+    <div class="stat-card">
+        <i class="bi bi-cart-check"></i>
+
+        <h3>Orders</h3>
+
+        <h2>{{ orders.count }}</h2>
+    </div>
+
+</div>
+<div class="recent-section">
+
+    <h2>Recent RFQs</h2>
+
+    {% for rfq in pending_rfqs|slice:":5" %}
+
+    <div class="rfq-row">
+
+        <div>
+            <strong>
+                {{ rfq.product.name }}
+            </strong>
+
+            <small>
+                Vendor:
+                {{ rfq.vendor.company_name }}
+            </small>
+        </div>
+
+        <div>
+            Quantity:
+            {{ rfq.quantity }}
+        </div>
+
+        <div>
+            <span class="status pending">
+                {{ rfq.status }}
+            </span>
+        </div>
+
+    </div>
+
+    {% empty %}
+
+    <p>No pending RFQs.</p>
+
+    {% endfor %}
+
+</div>
+<div class="quick-actions">
+
+    <h2>Quick Actions</h2>
+    <p>Manage your supplier activities quickly.</p>
+
+    <div class="action-buttons">
+
+        <a href="{% url 'addproduct' %}" class="action-card">
+            <i class="bi bi-plus-circle"></i>
+            <span>Add Product</span>
+        </a>
+
+        <a href="{% url 'supplierrfq' %}" class="action-card">
+            <i class="bi bi-file-earmark-text"></i>
+            <span>View RFQs</span>
+        </a>
+
+        <a href="{% url 'supplierpurchaseorders' %}" class="action-card">
+            <i class="bi bi-cart-check"></i>
+            <span>Purchase Orders</span>
+        </a>
+
+        <a href="#" class="action-card">
+            <i class="bi bi-box-seam"></i>
+            <span>Inventory</span>
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

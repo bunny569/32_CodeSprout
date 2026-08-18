@@ -1,0 +1,898 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet"
+          href="{% static 'css/landing.css' %}">
+
+    <title>
+        Smart Vendor Management System
+    </title>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="landing-navbar">
+
+    <div class="landing-logo">
+
+        <i class="bi bi-box-seam"></i>
+
+        <span>
+            VendorFlow
+        </span>
+
+    </div>
+
+
+    <div class="landing-nav-links">
+
+        <a href="#features">
+            Features
+        </a>
+
+        <a href="#workflow">
+            How It Works
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
+        <a
+            href="{% url 'login' %}"
+            class="login-btn"
+        >
+            Login
+        </a>
+
+        <a
+            href="{% url 'registration' %}"
+            class="register-btn"
+        >
+            Get Started
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================
+     HERO SECTION
+========================= -->
+
+<section class="hero-section">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+
+            <i class="bi bi-stars"></i>
+
+            Smart Vendor Management
+
+        </div>
+
+
+        <h1>
+
+            Simplify Your
+            <span>
+                Vendor & Supplier
+            </span>
+            Management
+
+        </h1>
+
+
+        <p>
+
+            Manage products, RFQs, quotations, purchase orders,
+            inventory and deliveries in one centralized platform.
+
+        </p>
+
+
+        <div class="hero-buttons">
+
+            <a
+                href="{% url 'registration' %}"
+                class="hero-primary-btn"
+            >
+
+                Get Started
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+
+            <a
+                href="#features"
+                class="hero-secondary-btn"
+            >
+
+                Explore Features
+
+            </a>
+
+        </div>
+
+
+        <div class="hero-stats">
+
+            <div>
+
+                <strong>
+                    RFQ
+                </strong>
+
+                <span>
+                    Management
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    PO
+                </strong>
+
+                <span>
+                    Tracking
+                </span>
+
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Analytics
+                </strong>
+
+                <span>
+                    Insights
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="dashboard-preview">
+
+            <div class="preview-top">
+
+                <span>
+                    Dashboard
+                </span>
+
+                <i class="bi bi-three-dots"></i>
+
+            </div>
+
+
+            <div class="preview-cards">
+
+                <div class="preview-card">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    <div>
+
+                        <small>
+                            Products
+                        </small>
+
+                        <strong>
+                            Manage
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-card">
+
+                    <i class="bi bi-file-earmark-text"></i>
+
+                    <div>
+
+                        <small>
+                            RFQs
+                        </small>
+
+                        <strong>
+                            Track
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-card">
+
+                    <i class="bi bi-cart-check"></i>
+
+                    <div>
+
+                        <small>
+                            Orders
+                        </small>
+
+                        <strong>
+                            Monitor
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="preview-card">
+
+                    <i class="bi bi-bar-chart"></i>
+
+                    <div>
+
+                        <small>
+                            Analytics
+                        </small>
+
+                        <strong>
+                            Analyze
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="preview-chart">
+
+                <div class="chart-bars">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FEATURES
+========================= -->
+
+<section
+    class="features-section"
+    id="features"
+>
+
+    <div class="section-heading">
+
+        <span>
+            FEATURES
+        </span>
+
+        <h2>
+            Everything You Need to Manage Procurement
+        </h2>
+
+        <p>
+            A centralized platform connecting vendors and suppliers
+            throughout the complete purchasing lifecycle.
+        </p>
+
+    </div>
+
+
+    <div class="features-grid">
+
+
+        <!-- PRODUCT MANAGEMENT -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-box-seam"></i>
+
+            </div>
+
+            <h3>
+                Product Management
+            </h3>
+
+            <p>
+                Suppliers can add and manage products,
+                prices, stock quantities, descriptions and images.
+            </p>
+
+        </div>
+
+
+        <!-- PRODUCT SEARCH -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-search"></i>
+
+            </div>
+
+            <h3>
+                Product Discovery
+            </h3>
+
+            <p>
+                Vendors can search supplier products and
+                find the materials they need quickly.
+            </p>
+
+        </div>
+
+
+        <!-- RFQ -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-file-earmark-text"></i>
+
+            </div>
+
+            <h3>
+                RFQ Management
+            </h3>
+
+            <p>
+                Vendors can send quotation requests while
+                suppliers can review and respond to RFQs.
+            </p>
+
+        </div>
+
+
+        <!-- QUOTATIONS -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-receipt"></i>
+
+            </div>
+
+            <h3>
+                Quotation Management
+            </h3>
+
+            <p>
+                Suppliers submit quotations with pricing,
+                quantities, delivery time and terms.
+            </p>
+
+        </div>
+
+
+        <!-- PURCHASE ORDERS -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-cart-check"></i>
+
+            </div>
+
+            <h3>
+                Purchase Orders
+            </h3>
+
+            <p>
+                Accepted quotations automatically become
+                purchase orders for streamlined procurement.
+            </p>
+
+        </div>
+
+
+        <!-- INVENTORY -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-stack"></i>
+
+            </div>
+
+            <h3>
+                Inventory Management
+            </h3>
+
+            <p>
+                Suppliers can monitor available stock and
+                manage inventory levels for their products.
+            </p>
+
+        </div>
+
+
+        <!-- DELIVERY -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-truck"></i>
+
+            </div>
+
+            <h3>
+                Order & Delivery Tracking
+            </h3>
+
+            <p>
+                Track orders from confirmation and shipment
+                through final delivery.
+            </p>
+
+        </div>
+
+
+        <!-- ANALYTICS -->
+
+        <div class="feature-card">
+
+            <div class="feature-icon">
+
+                <i class="bi bi-bar-chart-line"></i>
+
+            </div>
+
+            <h3>
+                Analytics
+            </h3>
+
+            <p>
+                Visualize RFQs, purchase orders, inventory
+                and purchasing activity through charts.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     WORKFLOW
+========================= -->
+
+<section
+    class="workflow-section"
+    id="workflow"
+>
+
+    <div class="section-heading">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+        <h2>
+            From Request to Delivery
+        </h2>
+
+        <p>
+            Manage the complete procurement process through
+            a simple workflow.
+        </p>
+
+    </div>
+
+
+    <div class="workflow">
+
+        <div class="workflow-step">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <i class="bi bi-search"></i>
+
+            <h3>
+                Find Products
+            </h3>
+
+            <p>
+                Vendors browse and search products
+                available from suppliers.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-step">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <i class="bi bi-file-earmark-text"></i>
+
+            <h3>
+                Request Quotation
+            </h3>
+
+            <p>
+                Vendors send an RFQ with quantity
+                and delivery requirements.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-step">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <i class="bi bi-receipt"></i>
+
+            <h3>
+                Receive Quotation
+            </h3>
+
+            <p>
+                Suppliers review the request and
+                submit their quotation.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-step">
+
+            <div class="step-number">
+                04
+            </div>
+
+            <i class="bi bi-cart-check"></i>
+
+            <h3>
+                Place Order
+            </h3>
+
+            <p>
+                Vendors accept a quotation and
+                generate a purchase order.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-line"></div>
+
+
+        <div class="workflow-step">
+
+            <div class="step-number">
+                05
+            </div>
+
+            <i class="bi bi-truck"></i>
+
+            <h3>
+                Track Delivery
+            </h3>
+
+            <p>
+                Suppliers ship the order and vendors
+                confirm the delivery.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     ROLE SECTION
+========================= -->
+
+<section
+    class="role-section"
+    id="about"
+>
+
+    <div class="section-heading">
+
+        <span>
+            BUILT FOR BOTH SIDES
+        </span>
+
+        <h2>
+            One Platform, Two Powerful Experiences
+        </h2>
+
+    </div>
+
+
+    <div class="role-grid">
+
+
+        <!-- VENDOR -->
+
+        <div class="role-card">
+
+            <div class="role-icon">
+
+                <i class="bi bi-shop"></i>
+
+            </div>
+
+            <h2>
+                For Vendors
+            </h2>
+
+            <p>
+                Discover products, request quotations,
+                compare offers and manage your purchase orders.
+            </p>
+
+            <ul>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Search supplier products
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Create RFQs
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Manage quotations
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Track purchase orders
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Confirm deliveries
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    View procurement analytics
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- SUPPLIER -->
+
+        <div class="role-card">
+
+            <div class="role-icon">
+
+                <i class="bi bi-building"></i>
+
+            </div>
+
+            <h2>
+                For Suppliers
+            </h2>
+
+            <p>
+                Manage your product catalog, respond to RFQs,
+                handle orders and monitor your inventory.
+            </p>
+
+            <ul>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Add and manage products
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Manage inventory
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Receive RFQs
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Submit quotations
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Manage purchase orders
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Track shipments
+                </li>
+
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    View business analytics
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     CTA
+========================= -->
+
+<section class="cta-section">
+
+    <div class="cta-content">
+
+        <i class="bi bi-box-seam"></i>
+
+        <h2>
+            Ready to Simplify Your Procurement?
+        </h2>
+
+        <p>
+            Connect vendors and suppliers,
+            streamline quotations and manage orders
+            from one platform.
+        </p>
+
+
+        <div class="cta-buttons">
+
+            <a
+                href="{% url 'registration' %}"
+                class="hero-primary-btn"
+            >
+
+                Create Account
+
+                <i class="bi bi-arrow-right"></i>
+
+            </a>
+
+
+            <a
+                href="{% url 'login' %}"
+                class="hero-secondary-btn"
+            >
+
+                Already have an account?
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="landing-footer">
+
+    <div>
+
+        <strong>
+            <i class="bi bi-box-seam"></i>
+            VendorFlow
+        </strong>
+
+        <p>
+            Smart Vendor Management System
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <span>
+            Vendor & Supplier Procurement Platform
+        </span>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

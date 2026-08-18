@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-page">
+
+    <div class="profile-header">
+
+        <div class="supplier-profile-icon">
+            <i class="bi bi-person-circle"></i>
+        </div>
+
+        <div>
+
+            <h1>
+                Edit Profile
+            </h1>
+
+            <p>
+                Update your supplier information.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="profile-card">
+
+        <div class="profile-card-header">
+
+            <h2>
+                Company Information
+            </h2>
+
+            <i class="bi bi-pencil-square"></i>
+
+        </div>
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <div class="profile-grid">
+
+
+                <!-- COMPANY NAME -->
+
+                <div class="edit-field">
+
+                    <label for="company_name">
+                        Company Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="company_name"
+                        name="company_name"
+                        value="{{ supplier.company_name }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CONTACT PERSON -->
+
+                <div class="edit-field">
+
+                    <label for="name">
+                        Contact Person
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ supplier.name }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="edit-field">
+
+                    <label for="email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ supplier.user.email }}"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- CONTACT -->
+
+                <div class="edit-field">
+
+                    <label for="contact">
+                        Contact Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contact"
+                        name="contact"
+                        value="{{ supplier.contact }}"
+                        maxlength="10"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- USERNAME -->
+
+                <div class="edit-field">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        value="{{ supplier.user.username }}"
+                        disabled
+                    >
+
+                </div>
+
+
+                <!-- WEBSITE -->
+
+                <div class="edit-field">
+
+                    <label for="website">
+                        Website
+                    </label>
+
+                    <input
+                        type="url"
+                        id="website"
+                        name="website"
+                        value="{{ supplier.website }}"
+                        placeholder="https://example.com"
+                    >
+
+                </div>
+
+
+                <!-- ADDRESS -->
+
+                <div class="edit-field profile-full">
+
+                    <label for="address">
+                        Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="4"
+                        required
+                    >{{ supplier.address }}</textarea>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="edit-field profile-full">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        placeholder="Tell vendors about your company..."
+                    >{{ supplier.description }}</textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="edit-actions">
+
+                <button
+                    type="submit"
+                    class="save-profile-btn"
+                >
+
+                    <i class="bi bi-check-circle"></i>
+
+                    Save Changes
+
+                </button>
+
+
+                <a
+                    href="{% url 'supplierprofile' %}"
+                    class="cancel-profile-btn"
+                >
+
+                    <i class="bi bi-x-circle"></i>
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

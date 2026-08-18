@@ -1,0 +1,145 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Find Products
+{% endblock %}
+
+{% block content %}
+
+<div class="products-header">
+
+    <h1>Find Products</h1>
+
+    <p>
+        Find products from our suppliers and request quotations.
+    </p>
+
+</div>
+
+
+<div class="product-search">
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="q"
+            value="{{ query }}"
+            placeholder="Search products..."
+        >
+
+        <button type="submit">
+            <i class="bi bi-search"></i>
+            Search
+        </button>
+
+    </form>
+
+</div>
+
+
+<div class="product-grid">
+
+    {% for product in products %}
+
+    <div class="product-card">
+
+
+        <div class="product-image">
+
+            {% if product.image %}
+
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                >
+
+            {% else %}
+
+                <i class="bi bi-image"></i>
+
+            {% endif %}
+
+        </div>
+
+
+        <div class="product-info">
+
+            <h2>
+                {{ product.name }}
+            </h2>
+
+            <p class="supplier-name">
+
+                <i class="bi bi-building"></i>
+
+                {{ product.supplier.company_name }}
+
+            </p>
+
+
+            <p class="category">
+
+                {{ product.category }}
+
+            </p>
+
+
+            <p class="description">
+
+                {{ product.description }}
+
+            </p>
+
+
+            <div class="product-details">
+
+                <span>
+                    ₹{{ product.price }}
+                </span>
+
+                <span>
+                    / {{ product.unit }}
+                </span>
+
+            </div>
+
+
+            <p>
+
+                Minimum Order:
+                {{ product.minimum_order_quantity }}
+
+            </p>
+
+
+
+           <a href="{% url 'requestquotation' product.id %}"
+   class="request-quotation-btn">
+    <i class="bi bi-file-earmark-text"></i>
+    Request Quotation
+</a>
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+        <div class="no-products">
+
+            <i class="bi bi-box-seam"></i>
+
+            <h2>No products found</h2>
+
+            <p>
+                Try searching for a different product.
+            </p>
+
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

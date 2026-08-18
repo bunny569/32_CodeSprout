@@ -1,0 +1,125 @@
+{% extends "base2.html" %}
+
+{% block title %}
+Request Quotation
+{% endblock %}
+
+{% block content %}
+
+<div class="request-quotation-page">
+
+    <div class="request-quotation-header">
+
+        <h1>Request Quotation</h1>
+
+        <p>
+            Send a quotation request to the supplier.
+        </p>
+
+    </div>
+
+
+    <div class="quotation-request-card">
+
+        <!-- Product -->
+
+        <div class="quotation-product">
+
+            {% if product.image %}
+
+                <img
+                    src="{{ product.image.url }}"
+                    alt="{{ product.name }}"
+                    class="quotation-product-image"
+                >
+
+            {% else %}
+
+                <div class="quotation-no-image">
+                    <i class="bi bi-image"></i>
+                </div>
+
+            {% endif %}
+
+
+            <div class="quotation-product-info">
+
+                <h2>
+                    {{ product.name }}
+                </h2>
+
+                <p>
+                    <strong>Category:</strong>
+                    {{ product.category }}
+                </p>
+
+                <p>
+                    <strong>Supplier:</strong>
+                    {{ supplier.company_name }}
+                </p>
+
+                <p>
+                    <strong>Unit:</strong>
+                    {{ product.unit }}
+                </p>
+
+                <p>
+                    <strong>Minimum Order:</strong>
+                    {{ product.minimum_order_quantity }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <!-- RFQ Form -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.non_field_errors }}
+
+
+            {% for field in form %}
+
+                <div class="rfq-field">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.errors %}
+
+                        <div class="field-error">
+                            {{ field.errors }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+
+            <button
+                type="submit"
+                class="send-rfq-btn"
+            >
+                <i class="bi bi-send"></i>
+                Send Request
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

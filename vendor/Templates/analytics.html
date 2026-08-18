@@ -1,0 +1,340 @@
+{% extends "base.html" %}
+
+{% block title %}
+Analytics
+{% endblock %}
+
+{% block content %}
+
+<div class="analytics-page">
+
+    <div class="analytics-header">
+
+        <h1>Analytics</h1>
+
+        <p>
+            Monitor your inventory, RFQs and purchase orders.
+        </p>
+
+    </div>
+
+
+    <div class="analytics-grid">
+
+
+ 
+
+        <div class="analytics-card">
+
+            <h2>Inventory by Product</h2>
+
+            <p>
+                Current stock available for each product.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="inventoryChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+ 
+
+        <div class="analytics-card">
+
+            <h2>RFQ Status</h2>
+
+            <p>
+                Overview of quotation requests.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="rfqChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    
+
+        <div class="analytics-card">
+
+            <h2>Purchase Orders</h2>
+
+            <p>
+                Overview of purchase orders.
+            </p>
+
+            <div class="chart-container">
+
+                <canvas id="orderChart"></canvas>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- Chart.js -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+
+
+
+{{ inventory_labels|json_script:"inventory-labels" }}
+
+{{ inventory_values|json_script:"inventory-values" }}
+
+
+{{ rfq_pending|json_script:"rfq-pending" }}
+
+{{ rfq_quoted|json_script:"rfq-quoted" }}
+
+{{ rfq_accepted|json_script:"rfq-accepted" }}
+
+{{ rfq_rejected|json_script:"rfq-rejected" }}
+
+{{ rfq_expired|json_script:"rfq-expired" }}
+
+
+{{ order_pending|json_script:"order-pending" }}
+
+{{ order_delivered|json_script:"order-delivered" }}
+
+{{ order_cancelled|json_script:"order-cancelled" }}
+
+
+<script>
+
+
+
+
+const inventoryLabels =
+    JSON.parse(
+        document.getElementById("inventory-labels").textContent
+    );
+
+
+const inventoryValues =
+    JSON.parse(
+        document.getElementById("inventory-values").textContent
+    );
+
+
+
+const rfqPending =
+    JSON.parse(
+        document.getElementById("rfq-pending").textContent
+    );
+
+
+const rfqQuoted =
+    JSON.parse(
+        document.getElementById("rfq-quoted").textContent
+    );
+
+
+const rfqAccepted =
+    JSON.parse(
+        document.getElementById("rfq-accepted").textContent
+    );
+
+
+const rfqRejected =
+    JSON.parse(
+        document.getElementById("rfq-rejected").textContent
+    );
+
+
+const rfqExpired =
+    JSON.parse(
+        document.getElementById("rfq-expired").textContent
+    );
+
+
+
+
+const orderPending =
+    JSON.parse(
+        document.getElementById("order-pending").textContent
+    );
+
+
+const orderDelivered =
+    JSON.parse(
+        document.getElementById("order-delivered").textContent
+    );
+
+
+const orderCancelled =
+    JSON.parse(
+        document.getElementById("order-cancelled").textContent
+    );
+
+
+
+
+new Chart(
+    document.getElementById("inventoryChart"),
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: inventoryLabels,
+
+            datasets: [
+
+                {
+
+                    label: "Stock Quantity",
+
+                    data: inventoryValues
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+);
+
+
+
+new Chart(
+    document.getElementById("rfqChart"),
+    {
+
+        type: "doughnut",
+
+        data: {
+
+            labels: [
+
+                "Pending",
+
+                "Quoted",
+
+                "Accepted",
+
+                "Rejected",
+
+                "Expired"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    data: [
+
+                        rfqPending,
+
+                        rfqQuoted,
+
+                        rfqAccepted,
+
+                        rfqRejected,
+
+                        rfqExpired
+
+                    ]
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+);
+
+
+
+
+new Chart(
+    document.getElementById("orderChart"),
+    {
+
+        type: "bar",
+
+        data: {
+
+            labels: [
+
+                "Pending",
+
+                "Delivered",
+
+                "Cancelled"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    label: "Orders",
+
+                    data: [
+
+                        orderPending,
+
+                        orderDelivered,
+
+                        orderCancelled
+
+                    ]
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false
+
+        }
+
+    }
+);
+
+
+</script>
+
+
+{% endblock %}

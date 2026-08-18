@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+
+<div class="navbars">
+
+    <nav class="supplier-nav">
+     <div class="profile-icon">
+
+    <i class="bi bi-person-circle"></i>
+
+    <span>Supplier</span>
+
+     </div>
+
+        <div class="items">
+
+            <a href="{% url 'supplierdashboard' %}" class="navitems">
+                <i class="bi bi-house-door"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{% url 'addproduct' %}" class="navitems">
+                <i class="bi bi-box-seam"></i>
+                <span>Products</span>
+            </a>
+
+            <a href="{% url 'supplierrfq' %}" class="navitems">
+                <i class="bi bi-file-earmark-text"></i>
+                <span>RFQs</span>
+            </a>
+
+            <a href="{% url 'supplierpurchaseorders' %}" class="navitems">
+                <i class="bi bi-cart-check"></i>
+                <span>Purchase Orders</span>
+            </a>
+
+            <a href="{% url 'inventory' %}" class="navitems">
+                <i class="bi bi-archive"></i>
+                <span>Inventory</span>
+            </a>
+            <a href="{% url 'analytics' %}" class="navitems">
+
+            <i class="bi bi-bar-chart"></i>
+
+            <span>
+              Analytics
+            </span>
+
+             </a>
+
+            <a href="{% url 'supplierprofile' %}" class="navitems">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+
+            <a href="{% url 'logout' %}" class="navitems">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Logout</span>
+            </a>
+
+        </div>
+
+    </nav>
+
+    <main class="dashboard">
+
+        {% block content %}
+        {% endblock %}
+
+    </main>
+
+</div>
+</body>
+</html>

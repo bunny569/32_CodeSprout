@@ -1,0 +1,117 @@
+{% extends "base2.html" %}
+
+{% block content %}
+<div class="quotation-header">
+
+    <h1>My Quotations</h1>
+
+    <p>
+        Review quotations received from suppliers.
+    </p>
+
+</div>
+
+
+<div class="quotation-grid">
+
+    {% for quotation in quotations %}
+
+    <div class="quotation-card">
+
+        {% if quotation.rfq.product.image %}
+
+            <img
+                src="{{ quotation.rfq.product.image.url }}"
+                alt="{{ quotation.rfq.product.name }}"
+            >
+
+        {% endif %}
+
+        <div class="quotation-content">
+
+            <h2>
+                {{ quotation.rfq.product.name }}
+            </h2>
+
+            <p>
+                <strong>Supplier:</strong>
+                {{ quotation.supplier.company_name }}
+            </p>
+
+            <p>
+                <strong>Quantity:</strong>
+                {{ quotation.quantity }}
+            </p>
+
+            <p>
+                <strong>Unit Price:</strong>
+                ₹{{ quotation.unit_price }}
+            </p>
+
+            <p>
+                <strong>Total:</strong>
+                ₹{{ quotation.total_price }}
+            </p>
+
+            <p>
+                <strong>Delivery:</strong>
+                {{ quotation.delivery_days }} days
+            </p>
+
+            <p>
+                <strong>Valid Until:</strong>
+                {{ quotation.valid_until }}
+            </p>
+
+
+            {% if quotation.status == "Pending" %}
+
+                <span class="status pending">
+                    Pending
+                </span>
+
+                <div class="quotation-actions">
+
+                    <a href="{% url 'quotation_action' quotation.id 'accept' %}">
+                        <button class="accept-btn">
+                            Accept
+                        </button>
+                    </a>
+
+                    <a href="{% url 'quotation_action' quotation.id 'reject' %}">
+                        <button class="reject-btn">
+                            Reject
+                        </button>
+                    </a>
+
+                </div>
+
+            {% elif quotation.status == "Accepted" %}
+
+                <span class="status accepted">
+                    Accepted
+                </span>
+
+            {% elif quotation.status == "Rejected" %}
+
+                <span class="status rejected">
+                    Rejected
+                </span>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% empty %}
+
+        <div class="no-products">
+            <h2>No quotations received yet.</h2>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
