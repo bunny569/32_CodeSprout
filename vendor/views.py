@@ -45,8 +45,6 @@ def registration(request):
                   company_name=form.cleaned_data["company_name"],
                   name=form.cleaned_data["name"],
                   contact=form.cleaned_data["contact"],
-                  address=form.cleaned_data["address"],
-                  industry=form.cleaned_data["industry"],
               )
               vendor_group=Group.objects.get(name="Vendor")
               user.groups.add(vendor_group)
