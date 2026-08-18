@@ -5,10 +5,11 @@ import os
 
 
 class Command(BaseCommand):
-    help = "Create Render superuser"
+    help = "Create Render groups and admin user"
 
     def handle(self, *args, **kwargs):
-         # Create groups
+
+        # Create required groups
         Group.objects.get_or_create(name="Vendor")
         Group.objects.get_or_create(name="Supplier")
 
@@ -18,26 +19,35 @@ class Command(BaseCommand):
 
         User = get_user_model()
 
-        username = os.environ.get("ADMIN_USERNAME", "bhanu")
-        email = os.environ.get("ADMIN_EMAIL", "bhanu@gmail.com")
-        password = os.environ.get("bhanu@123")
+        username = os.environ.get("ADMIN_USERNAME", "admin")
+        email = os.environ.get(
+            "ADMIN_EMAIL",
+            "admin@example.com"
+        )
+        password = os.environ.get("ADMIN_PASSWORD")
 
         if not password:
             self.stdout.write(
-                self.style.ERROR("ADMIN_PASSWORD environment variable is missing.")
+                self.style.ERROR("ADMIN_PASSWORD is missing.")
             )
             return
 
-        if User.objects.filter(username=username).exists():
-            self.stdout.write("Admin user already exists.")
-            return
-
-        User.objects.create_superuser(
+        user, created = User.objects.get_or_create(
             username=username,
-            email=email,
-            password=password
+            defaults={"email": email}
         )
 
+        if created:
+            user.set_password(password)
+
+        user.email = email
+        user.is_staff = True
+        user.is_superuser = True
+        user.is_active = True
+        user.save()
+
         self.stdout.write(
-            self.style.SUCCESS("Superuser created successfully.")
+            self.style.SUCCESS(
+                f"Admin privileges enabled for {username}."
+            )
         )
