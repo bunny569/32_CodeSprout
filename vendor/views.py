@@ -687,3 +687,65 @@ def edit_supplier_profile(request):
             "supplier": supplier
         }
     )
+@login_required
+def supplier_products(request):
+
+    supplier = request.user.supplier
+
+    products = Product.objects.filter(
+        supplier=supplier
+    )
+
+    return render(
+        request,
+        "supplierproducts.html",
+        {
+            "products": products
+        }
+    )
+@login_required
+def delete_product(request, id):
+    product = get_object_or_404(Product, id=id)
+
+    product.delete()
+
+    return redirect("supplierproducts")
+@login_required
+def edit_product(request, id):
+
+    supplier = request.user.supplier
+
+    product = get_object_or_404(
+        Product,
+        id=id,
+        supplier=supplier
+    )
+
+    if request.method == "POST":
+
+        product.name = request.POST.get("name")
+        product.category = request.POST.get("category")
+        product.description = request.POST.get("description")
+        product.unit = request.POST.get("unit")
+        product.price = request.POST.get("price")
+        product.minimum_order_quantity = request.POST.get(
+            "minimum_order_quantity"
+        )
+        product.stock_quantity = request.POST.get(
+            "stock_quantity"
+        )
+
+        if request.FILES.get("image"):
+            product.image = request.FILES.get("image")
+
+        product.save()
+
+        return redirect("supplierproducts")
+
+    return render(
+        request,
+        "editproduct.html",
+        {
+            "product": product
+        }
+    )

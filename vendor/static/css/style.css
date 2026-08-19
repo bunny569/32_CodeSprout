@@ -79,10 +79,14 @@ body {
     transform: translateX(5px);
 }
 
+
 .dashboard {
     margin-left: 220px;
-    padding: 30px;
+    width: calc(100% - 220px);
     min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+
 }
 .dashboard-header {
     margin-bottom: 30px;
@@ -99,23 +103,24 @@ body {
 
 
 .dashboard-cards {
+   width: 100%;
     display: grid;
-
-    grid-template-columns: repeat(4, 1fr);
-
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 20px;
+    box-sizing: border-box;
 }
 
 
 .stat-card {
+      width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
     background: white;
-
     padding: 25px;
-
     border-radius: 15px;
 
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 
     transition: 0.3s;
 }
@@ -311,22 +316,26 @@ body {
     border-radius: 10px;
 }
 .product-grid {
+     width: 100%;
     display: grid;
 
     grid-template-columns:
         repeat(auto-fit, minmax(250px, 1fr));
 
     gap: 25px;
+
+    box-sizing: border-box;
 }
 .product-card {
+   width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+
     background: white;
-
     border-radius: 18px;
-
     overflow: hidden;
 
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 
     transition: 0.3s;
 }
@@ -2609,6 +2618,23 @@ body {
     }
 
 }
+@media (max-width: 1000px) {
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .action-buttons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .product-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
 
 @media (max-width: 700px) {
 
@@ -2618,6 +2644,7 @@ body {
 
     .dashboard {
         margin-left: 190px;
+        width: calc(100% - 190px);
         padding: 20px;
     }
 
@@ -2629,29 +2656,17 @@ body {
         grid-template-columns: 1fr;
     }
 
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+
     .rfq-row {
         flex-direction: column;
         align-items: flex-start;
         gap: 10px;
     }
 
-    .quotation-product {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .request-quotation-page,
-    .submit-quotation-page,
-    .inventory-update-page {
-        padding: 15px;
-    }
-
 }
-
-/* =========================================================
-   LOGIN & REGISTRATION PAGES
-   Works with the existing .login and .login1 HTML classes.
-========================================================= */
 
 .login,
 .login1 {
